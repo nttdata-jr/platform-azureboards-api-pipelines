@@ -1,4 +1,4 @@
-name: Create Task Request
+name: Create AZ Task
 on:
   workflow_dispatch:
         inputs:
@@ -14,12 +14,22 @@ on:
                 description: 'Area de trabajo del task'
                 required: false
                 type: string
-                default: NTT Ingeniería de Plataformas\Versionador
+                default: 'NTT Ingeniería de Plataformas\Versionador'
+            activity:
+                description: 'Actividad del task'
+                required: false
+                type: string
+                default: 'Development'
+            grupoResponsable:
+                description: 'Grupo responsable de la actividad'
+                required: false
+                type: string
+                default: 'Arquitectura'
 jobs:
   create-task:
     runs-on: ubuntu-latest
     steps:
-      - name: Crear Task en Azure Boards
+      - name: Creating AZ task
         env:
           AZURE_ORG: ${{ secrets.AZURE_ORG }}
           AZURE_PROJECT: ${{ secrets.AZURE_PROJECT }}
@@ -34,7 +44,5 @@ jobs:
           EOF
           )
 
-          curl -X POST "https://dev.azure.com/$AZURE_ORG/$(urlencode "$AZURE_PROJECT")/_apis/wit/workitems/\$Task?api-version=7.1" \
-            -H "Authorization: Basic $(echo -n :$AZURE_PAT | base64)" \
-            -H "Content-Type: application/json-patch+json" \
-            -d "$PAYLOAD"
+          curl -X POST "https://dev.azure.com/$AZURE_ORG/$AZURE_PROJECT/_apis/wit/workitems/148800?api-version=7.1" \
+            -H "Authorization: Basic $(echo -n :$AZURE_PAT | base64)"
