@@ -31,18 +31,8 @@ jobs:
     steps:
       - name: Creating AZ task
         env:
-          AZURE_ORG: ${{ secrets.AZURE_ORG }}
-          AZURE_PROJECT: ${{ secrets.AZURE_PROJECT }}
           AZURE_PAT: ${{ secrets.AZURE_PAT }}
         run: |
-          PAYLOAD=$(cat <<EOF
-          [
-            { "op": "add", "path": "/fields/System.Title", "value": "${{ github.event.inputs.title }}" },
-            { "op": "add", "path": "/fields/System.Description", "value": "${{ github.event.inputs.description }}" },
-            { "op": "add", "path": "/fields/System.AreaPath", "value": "${{ github.event.inputs.areaPath }}" }
-          ]
-          EOF
-          )
-
-          curl -X POST "https://dev.azure.com/$AZURE_ORG/$AZURE_PROJECT/_apis/wit/workitems/148800?api-version=7.1" \
+          echo "https://dev.azure.com/${{ $AZURE_ORG }}/${{ vars.AZURE_PROJECT }}/_apis/wit/workitems/$Task?api-version=7.1"
+          curl -X POST "https://dev.azure.com/${{ $AZURE_ORG }}/${{ vars.AZURE_PROJECT }}/_apis/wit/workitems/148800?api-version=7.1" \
             -H "Authorization: Basic $(echo -n :$AZURE_PAT | base64)"
