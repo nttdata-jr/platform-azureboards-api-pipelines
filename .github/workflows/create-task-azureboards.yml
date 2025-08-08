@@ -34,5 +34,5 @@ jobs:
           AZURE_PAT: ${{ secrets.AZURE_PAT }}
         run: |
           echo "https://dev.azure.com/${{ vars.AZURE_ORG }}/${{ vars.AZURE_PROJECT }}/_apis/wit/workitems/$Task?api-version=7.1" \
-          curl -X POST "https://dev.azure.com/${{ vars.AZURE_ORG }}/${{ vars.AZURE_PROJECT }}/_apis/wit/workitems/148800?api-version=7.1" \
-            -H "Authorization: Basic $(echo -n :$AZURE_PAT | base64)"
+          curl -v -X POST "https://dev.azure.com/${{ vars.AZURE_ORG }}/${{ vars.AZURE_PROJECT }}/_apis/wit/workitems/148800?api-version=7.1" \
+            -H "Authorization: Basic $AZURE_PAT"
