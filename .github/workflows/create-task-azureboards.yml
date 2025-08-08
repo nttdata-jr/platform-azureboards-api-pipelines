@@ -34,18 +34,18 @@ jobs:
           AZURE_PAT: ${{ secrets.AZURE_PAT }}
         run: |
           PAYLOAD=$(cat <<EOF
-        [
-          { "op": "add", "path": "/fields/System.Title", "value": "${{ github.event.inputs.title }}" },
-          { "op": "add", "path": "/fields/System.Description", "value": "${{ github.event.inputs.description }}" },
-          { "op": "add", "path": "/fields/System.AreaPath", "value": "${{ github.event.inputs.areaPath }}" },
-          { "op": "add", "path": "/fields/Microsoft.VSTS.Common.Activity", "value": "${{ github.event.inputs.activity }}" },
-          { "op": "add", "path": "/fields/Custom.GrupoResponsable", "value": "${{ github.event.inputs.grupoResponsable }}" },
-          { "op": "add", "path": "/fields/Microsoft.VSTS.Scheduling.OriginalEstimate", "value": 0 },
-          { "op": "add", "path": "/fields/System.State", "value": "Active" },
-          { "op": "add", "path": "/fields/System.Tags", "value": "Pendiente Aprobacion" }
-        ]
-        EOF
-        )
+          [
+            { "op": "add", "path": "/fields/System.Title", "value": "${{ github.event.inputs.title }}" },
+            { "op": "add", "path": "/fields/System.Description", "value": "${{ github.event.inputs.description }}" },
+            { "op": "add", "path": "/fields/System.AreaPath", "value": "${{ github.event.inputs.areaPath }}" },
+            { "op": "add", "path": "/fields/Microsoft.VSTS.Common.Activity", "value": "${{ github.event.inputs.activity }}" },
+            { "op": "add", "path": "/fields/Custom.GrupoResponsable", "value": "${{ github.event.inputs.grupoResponsable }}" },
+            { "op": "add", "path": "/fields/Microsoft.VSTS.Scheduling.OriginalEstimate", "value": 0 },
+            { "op": "add", "path": "/fields/System.State", "value": "Active" },
+            { "op": "add", "path": "/fields/System.Tags", "value": "Pendiente Aprobacion" }
+          ]
+          EOF
+          )
           echo "https://dev.azure.com/${{ vars.AZURE_ORG }}/${{ vars.AZURE_PROJECT }}/_apis/wit/workitems/\$Task?api-version=7.1" \
           curl -X POST "https://dev.azure.com/${{ vars.AZURE_ORG }}/${{ vars.AZURE_PROJECT }}/_apis/wit/workitems/\$Task?api-version=7.1" \
             -H "Authorization: Basic $AZURE_PAT" \
