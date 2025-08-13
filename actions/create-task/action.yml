@@ -1,0 +1,10 @@
+inputs:
+  azure_pat:
+    required: true
+    description: 'Azure PAT'
+  playload:
+    required: true
+    description: 'Parámetros en JSON'
+runs:
+  using: 'node16'
+  main: 'index.js'
